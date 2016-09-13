@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- apk下载路径 -->
+<url>http://www.lsscl.com:8080/appDownload/lsscl1.3.4.apk</url>
+<!-- 客户端请求地址 -->
+<qcURL>http://www.lsscl.com:8080/servlet/appServlet</qcURL>
+<!-- 最新版本号 -->
+<version>1.3.4</version>
+<!-- 版本信息 -->
+<content>
+    压缩机管家Android版1.3.4
+    新增功能：
+    1、运行界面滚动条点击事件范围
+    2、登录界面布局
+    3、警告界面布局
+</content>

@@ -1,0 +1,18 @@
+{
+	"RSP":{
+		"MSGID":"MobileIndex",
+		"RESULT":"0=成功 1=失败 2=帐号被其他用户登录，重新登录",
+		"ERROR":"失败原因说明",
+		"MSGBODY":{
+			"USERNAME":"张三",
+			"FACTORYNAME":"巨石集团",
+			"TIME":"2014-03-11 10:31:11",
+			"POWER":75.65,
+			"TOTAL":5,
+			"OPEN":3,
+			"CLOSE":2,
+			"ALARM":2,
+			"LASTALARMTIME":"2014-02-01 12:11:11"
+		}
+	}
+}

@@ -1,0 +1,25 @@
+<%--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+--%>
+<%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
+        </table>
+        <tag:dsEvents/>
+      </div>
+    </td>
+  </tr>
+</table>

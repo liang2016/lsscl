@@ -1,0 +1,450 @@
+/*
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+    
+*/
+html > body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	background-color: #FFFFFF;
+	background-image:url(../images/bg.png); background-repeat:repeat);
+	margin: 0px;
+	padding: 0px;
+}
+a, a:visited, a:link, .link {
+	color: #E91B24;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-decoration: underline;
+	font-size: 11px;
+}
+a:hover {
+	color: #66CD00;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-decoration: underline;
+	font-size: 11px;
+}
+a.titleLink, a.titleLink:visited, a.titleLink:link {
+	font-size: 11px;
+	font-weight: bold;
+}
+a.titleLink:hover {
+	font-size: 11px;
+	font-weight: bold;
+}
+.bigTitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 16px;
+	font-weight: bold;
+}
+.smallTitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #006400;
+	font-size: 13px;
+	font-weight: bold;
+}
+.titlePadding {
+	padding:3px 3px 0px 3px;
+}
+.copyTitle {
+	color: #FFFFFF;
+	font-size: 10px;
+}
+.bodyCopy {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 11px;
+}
+.footer {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 9px;
+}
+.ptr {
+	cursor: pointer;
+}
+
+
+/**
+ * Header styles
+ */
+#__header__alarmLevelText {
+	font-weight: bold;
+	font-size: 14px;
+}
+#mainHeader {
+	padding-top: 0px;
+	background-color: #FFFFFF;
+}
+#subHeader {
+	background-color: #F0F0F0;
+	padding: 3px;
+}
+
+
+/**
+ * List cell styles.
+ */
+.rowHeader td, .smRowHeader td, .row td, .smRow td, .rowAlt td, .smRowAlt td, .rowAlt2 td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.rowHeader td, .smRowHeader td {
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #006400;
+	text-align: center;
+    white-space: nowrap;
+}
+.rowHeader td {
+	padding: 3px 10px 3px 10px;
+}
+.smRowHeader td {
+	padding: 2px 3px 2px 3px;
+}
+a.rowHeaderLink, a.rowHeaderLink:visited, a.rowHeaderLink:link, a.rowHeaderLink:hover {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.row td, .smRow td, .rowAlt td, .smRowAlt td, .rowAlt2 td {
+	color: #000000;
+}
+.row td, .rowAlt td, .rowAlt2 td {
+	padding: 3px;
+}
+.smRow td, .smRowAlt td {
+	padding: 0px 3px 0px 3px;
+}
+.row td, .smRow td {
+	background-color: #F0F0F0;
+}
+.rowAlt td, .smRowAlt td {
+	background-color: #DCDCDC;
+}
+.rowAlt2 td {
+	background-color: #FFFFFF;
+}
+
+.borderDiv, .borderDivPadded {
+	border: 1px solid #458B00;
+	background-color: #CFCFD1;
+}
+.borderDivPadded {
+	padding: 3px;
+}
+.marR {
+	margin-right: 5px;
+}
+.marB {
+	margin-bottom: 5px;
+}
+
+
+
+/**
+ * Form styles
+ */
+.formLabel, .formLabelRequired, .formField, .formError, select, input, textarea {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.formLabel, .formLabelRequired {
+	color: #006400;
+	padding-right: 10px;
+	text-align: right;
+	white-space: nowrap;
+	padding-top: 5px;
+	vertical-align: top;
+}
+.formLabelRequired, .formError {
+	font-weight: bold;
+}
+.formField {
+	padding: 2px;
+	color: #458B00;
+}
+.formError {
+	color: #FF0000;
+	padding-left: 10px;
+}
+select, input, textarea {
+	color: #333333;
+	border: 1px solid #458B00;
+	padding: 2px;
+}
+input[type="checkbox"], input[type="radio"] {
+	color: #F07800;
+	border: 0;
+}
+.formVeryShort {
+	width: 40px;
+}
+.formShort {
+	width: 50px;
+}
+.formLong {
+	width: 250px;
+}
+.formDisabled {
+	border: 1px solid #D0D0D0;
+}
+input[type="submit"], input[type="button"],input[type="reset"] {
+	overflow: visible;
+	color: white;
+	border:2px outset #458B00;
+	background-color:#458B00;
+	padding: 1px 3px;
+	margin: 1px;
+	cursor: pointer;
+}
+
+
+
+/**
+ * View styles
+ */
+.controlsDiv {
+    position: absolute;
+    visibility: hidden;
+    left: 0;
+    top: -1px;
+    z-index: 1;
+    margin: 1px 0px 1px 0px;
+    padding: 0;
+    background-color: #FFFFFF;
+}
+.controlsDiv table {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+}
+.controlsDiv td {
+    list-style: none;
+    margin: 1px;
+    padding: 0;
+    background-color: #b6ea8a;
+    width: 16px;
+    height: 16px;
+}
+.controlsDiv td div, .controlContent {
+    padding: 1px 5px 1px 5px;
+    margin: 0px;
+    background: #b6ea8a;
+    white-space: nowrap;
+    text-align: left;
+	font-size: 10px;
+	font-weight: normal;
+    border: 1px solid #458B00;
+    position: absolute;
+    visibility:hidden;
+    left: 15px;
+    top: 0px;
+}
+
+.labelDiv, .windowDiv {
+    position:absolute;
+    padding:1px 5px 1px 5px;
+    margin:0px;
+    background:#E3E3E3;
+    white-space:nowrap;
+    text-align:left;
+	font-size: 10px;
+	font-weight: normal;
+	z-index: 20;
+}
+.labelDiv {
+    border:1px solid #32CD32;
+}
+.windowDiv {
+    border:1px outset #32CD32;
+}
+.labelDiv a, .windowDiv a {
+	font-size: 10px;
+}
+.imageDiv {
+    z-index:10;
+    left:18px;
+    position:absolute;
+    padding:0px;
+    margin:0px;
+    background:#32CD32;
+    white-space:nowrap;
+    border:1px solid #32CD32;
+}
+.ovrflw {
+    background:inherit;
+    background:expression(this.parentNode.style.background);
+    color:inherit;
+    color:expression(this.parentNode.style.color);
+    font:inherit;
+    font:expression(this.parentNode.style.font);
+    width:300px;
+   	border-width:0 1px 0 1px;
+   	border-style:solid;
+   	border-color:#32CD32;
+}
+#viewContent {
+	position:relative;
+	margin: 0px;
+	padding: 0px;
+}
+#viewContent img {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+}
+.componentMin {
+	background-color: #458B00;
+    top:0px;
+    left:0px;
+    margin:0px;
+    padding:0px;
+    width:16px;
+    height:16px;
+}
+.componentInput {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #333333;
+	border: 1px solid #458B00;
+	padding: 1px;
+}
+
+.flashClass{
+    border:1px solid #458B00;
+    padding:1px 5px 1px 5px;
+    margin:0px;
+    background:#b6ea8a;
+    white-space:nowrap;
+    text-align:left;
+	line-height:16px;
+}
+
+.simpleRenderer, .simpleRenderer2 {
+    border:1px solid #458B00;
+    padding:1px 5px 1px 5px;
+    margin:0px;
+    background:#b6ea8a;
+    white-space:nowrap;
+    text-align:left;
+}
+.simpleRenderer {
+	line-height:16px;
+}
+.infoData {
+	color: #FF0000;
+}
+.horzSeparator {
+	height: 1px;
+	background: #699D2E;
+	padding: 0px;
+}
+.viewChangeBkgd {
+	background: #D8E2CC;
+}
+
+
+/**
+ * Absmiddle workaround
+ */
+span.absmiddle img {
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+/*	display: inline-block; */
+	display: inline;
+}
+
+
+/**
+ * Documentation float pane style overrides.
+ */
+html > body .dojoFloatingPaneTitleBar {
+    background-color: #6D933E;
+}
+html > body .dojoFloatingPaneCloseIcon {
+    background-image: url(../images/cross_doc.png);
+    cursor: pointer;
+}
+html > body .dojoFloatingPaneClient {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+html > body .dojoFloatingPaneClient p, #help p {
+	padding: 0px;
+	margin: 0px 0px 10px 0px;
+}
+#help h1 {
+	color: #804000;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 0px;
+	margin: 20px 0px 10px 0px;
+}
+html > body .dojoFloatingPaneClient h1, #help h2 {
+	padding: 0px;
+	margin: 0px 0px 10px 0px;
+	font-size: 13px;
+	font-weight: bold;
+}
+html > body .dojoFloatingPaneClient img, #help img {
+	vertical-align: bottom;
+}
+
+/**
+ * Common tree styling
+ */
+html > body .dojoTreeNodeLabelSelected {
+    background-color: #F07800;
+    color: #FFFFFF;
+    padding: 2px 3px 3px 2px;
+}
+
+
+/**
+ * Styles for weekly 15 minute interval schedules.
+ */
+.qoff {
+    /*background-color: #B4CE96;*/
+    background-color: #FF4000;
+}
+.qon {
+    /*background-color: #699D2E;*/
+    background-color: #B4CE96;
+}
+
+.qreg {
+    border: 1px solid #699D2E;
+}
+.qhlt {
+    border: 1px solid #FF9D2E;
+}
+
+.hreg {
+    border: 1px solid #FFFFFF;
+}
+.hhlt {
+    border: 1px solid #FF9D2E;
+}
+div.rtop, div.rbottom{display:block;}
+div.rtop div, div.rbottom div{display:block;height: 1px;overflow: hidden; background: red;}
+div.r1{margin: 0 5px}
+div.r2{margin: 0 3px}
+div.r3{margin: 0 2px}
+div.rtop div.r4, div.rbottom div.r4{margin: 0 1px;height: 2px}
+

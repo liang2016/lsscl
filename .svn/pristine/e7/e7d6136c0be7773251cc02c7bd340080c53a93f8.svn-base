@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- apk下载路径 -->
+<url>http://www.lsscl.com:8080/appDownload/lsscl2.1.6.1.apk</url>
+<!-- 客户端请求地址 -->
+<qcURL>http://www.lsscl.com:8080/servlet/appServlet</qcURL>
+<!-- 最新版本号 -->
+<version>2.1.6.1</version>
+<!-- 版本信息 -->
+<content>
+    压缩机管家Android版2.1.6.1
+    新增功能：
+    1、字体适配（首页、运行）
+    2、空压机列表滚动条适配 
+    3、登录界面、软件信息界面图片
+    4、设置界面、报警界面字体适配
+</content>

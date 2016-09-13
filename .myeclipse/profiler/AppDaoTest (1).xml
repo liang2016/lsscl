@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="profiler.settings.instrument.empty.methods">true</entry>
+<entry key="ProfilerCPUSettings_profile_runnables">true</entry>
+<entry key="profiler.settings.n.profiled.threads.limit">32</entry>
+<entry key="ProfilerCPUSettings_filter_type">2</entry>
+<entry key="profiler.settings.obj.alloc.stack.sampling.depth">-1</entry>
+<entry key="profiler.settings.instrument.method.invoke">true</entry>
+<entry key="profiler.settings.instr.scheme">1</entry>
+<entry key="ProfilerMemorySettings_track_every">10</entry>
+<entry key="ProfilerMemorySettings_mode">4</entry>
+<entry key="ProfilerCPUSettings_root_classes">br.org.scadabr.rt.dataSource.dnp3.**
+br.org.scadabr.rt.dataSource.opc.**
+br.org.scadabr.vo.dataSource.dnp3.**
+br.org.scadabr.vo.dataSource.opc.**
+com.lsscl.app.bean.**
+com.lsscl.app.dao.**
+com.lsscl.app.service.**
+com.lsscl.app.servlet.**
+com.lsscl.app.util.**
+com.serotonin.mango.**
+modbus.**
+test.**
+thread.**
+</entry>
+<entry key="ProfilerCPUSettings_filter_value">br.org.scadabr.rt.dataSource.dnp3.*,&#13;
+br.org.scadabr.rt.dataSource.opc.*,&#13;
+br.org.scadabr.vo.dataSource.dnp3.*,&#13;
+br.org.scadabr.vo.dataSource.opc.*,&#13;
+com.lsscl.app.bean.*,&#13;
+com.lsscl.app.dao.*,&#13;
+com.lsscl.app.service.*,&#13;
+com.lsscl.app.servlet.*,&#13;
+com.lsscl.app.util.*,&#13;
+com.serotonin.mango.*,&#13;
+modbus.*,&#13;
+test.*,&#13;
+thread.*</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">true</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+<entry key="ProfilerMemorySettings_stacktraces">-1</entry>
+<entry key="profiler.settings.sampling.interval">10</entry>
+<entry key="profiler.settings.cpu.profiling.type">0</entry>
+</properties>

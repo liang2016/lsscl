@@ -1,0 +1,134 @@
+package com.lsscl.app.bean;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Map;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleInsets;
+
+/**
+ * 24小时点数据统计实体
+ * 
+ * @author yxx
+ * 
+ */
+public class PointsWithin24HMsgBody extends MsgBody {
+	private static final long serialVersionUID = -3693167843596930549L;
+	private Map<Integer, Object> points;
+	private String title;
+	private String subTitle;
+	private int dataType;// 数据类型
+
+	public Map<Integer, Object> getPoints() {
+		return points;
+	}
+
+	public void setPoints(Map<Integer, Object> points) {
+		this.points = points;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(int dataType) {
+		this.dataType = dataType;
+	}
+
+	public String getSubTitle() {
+		return subTitle;
+	}
+
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
+	}
+
+	/**
+	 * 生成统计图片
+	 */
+	public void toImage(OutputStream out) {
+		// 建立JFreeChart
+		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+		double max = 0;
+		double min = 0;
+		int i = 0;
+		for (Integer key : points.keySet()) {
+			Double value = (Double) points.get(key);
+			if (i == 0) {
+				max = value;
+				min = value;
+			}
+			if (value > max)
+				max = value;
+			if (value < min)
+				min = value;
+			dataSet.setValue((Number) points.get(key), "", "" + key);
+			i++;
+		}
+
+		// 如果把createLineChart改为createLineChart3D就变为了3D效果的折线图
+		JFreeChart jfc = ChartFactory.createLineChart(null, "time", "value",
+				dataSet, PlotOrientation.VERTICAL, // 绘制方向
+				true, // 显示图例
+				true, // 采用标准生成器
+				false // 是否生成超链接
+				);
+
+		jfc.getLegend().setItemFont(new Font("微软雅黑", 0, 10));
+		// 设置标题并且设置其字体，防止中文乱码
+		TextTitle textTitle = new TextTitle("                    " + title);
+		textTitle.setFont(new Font("宋体", Font.BOLD, 12));
+		textTitle.setHorizontalAlignment(HorizontalAlignment.LEFT);
+		jfc.setTitle(textTitle);
+		// 设置图表子标题
+		TextTitle subTitleText = new TextTitle("                   " + subTitle);
+		subTitleText.setFont(new Font("宋体", Font.BOLD, 12));
+		subTitleText.setHorizontalAlignment(HorizontalAlignment.LEFT);
+		jfc.addSubtitle(subTitleText);
+		CategoryPlot plot = (CategoryPlot) jfc.getPlot();
+		plot.setBackgroundPaint(Color.lightGray);
+		plot.setDomainGridlinePaint(Color.white);
+		plot.setRangeGridlinePaint(Color.white);
+		plot.setAxisOffset(new RectangleInsets(5D, 5D, 5D, 5D));
+		plot.setDomainCrosshairVisible(true);
+		plot.setRangeCrosshairVisible(true);
+		LineAndShapeRenderer render = (LineAndShapeRenderer) plot.getRenderer();
+		render.setBaseShapesVisible(true);
+		render.setBaseShapesFilled(true);
+		plot.getRangeAxis().setRange(min - (max - min) / 2,
+				max + (max - min) / 2);
+
+		try {
+			ChartUtilities.writeChartAsPNG(out, jfc, 800, 300);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

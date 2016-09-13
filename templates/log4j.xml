@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.   
+    
+-->
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+  <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+<!--      <param name="ConversionPattern" value="%d{ISO8601} %-5p [%c.%l] %m%n"/> -->
+      <param name="ConversionPattern" value="%-5p %d{ISO8601} (%C.%M:%L) - %m %n"/>
+    </layout>
+  </appender>
+  
+  <appender name="logfile" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="${catalina.base}/logs/mango.log"/>
+<!--    <param name="MaxFileSize" value="100KB"/> -->
+    <param name="DatePattern" value="yyyy-MM-dd"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%-5p %d{ISO8601} (%C.%M:%L) - %m %n"/>
+    </layout>
+  </appender>
+  
+  <appender name="grove" class="com.serotonin.mango.util.MangoGroveLogAppender"/>
+  
+  <appender name="async" class="org.apache.log4j.AsyncAppender">
+    <param name="LocationInfo" value="true"/>
+    <appender-ref ref="logfile"/>
+    <appender-ref ref="grove"/>
+  </appender>
+  
+  <category name="org.directwebremoting">
+    <level value="fatal"/>
+  </category>
+  
+  <category name="org">
+    <level value="INFO"/>
+  </category>
+  
+  <category name="org.springframework.web.servlet.FrameworkServlet"><level value="error"/></category>
+  <category name="com.serotonin.db.spring.ExtendedJdbcTemplate"><level value="error"/></category>
+  
+  <category name="com.serotonin.mango.rt.dataSource.viconics"><level value="info"/></category>
+  
+  <category name="com.serotonin.mango">
+    <level value="INFO"/>
+  </category>
+  
+  <root>
+    <level value="info"/>
+    <appender-ref ref="async"/>
+    <appender-ref ref="stdout"/>
+  </root>
+
+</log4j:configuration>

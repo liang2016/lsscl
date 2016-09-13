@@ -1,0 +1,66 @@
+/*
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+    
+ */
+package com.serotonin.mango.web.dwr.beans;
+
+import com.serotonin.ShouldNeverHappenException;
+import com.serotonin.util.StringUtils;
+
+public class WatchListState extends BasePointState {
+    private String value;
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public WatchListState clone() {
+        try {
+            return (WatchListState) super.clone();
+        }
+        catch (CloneNotSupportedException e) {
+            throw new ShouldNeverHappenException(e);
+        }
+    }
+
+    public void removeEqualValue(WatchListState that) {
+        super.removeEqualValue(that);
+        if (StringUtils.isEqual(value, that.value))
+            value = null;
+        if (StringUtils.isEqual(time, that.time))
+            time = null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return value == null && time == null && super.isEmpty();
+    }
+}

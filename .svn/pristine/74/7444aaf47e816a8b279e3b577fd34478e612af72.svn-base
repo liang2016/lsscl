@@ -1,0 +1,46 @@
+package test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.serotonin.mango.db.dao.DataSourceDao;
+import com.serotonin.mango.vo.dataSource.modbus.ModbusIpDataSourceVO;
+
+public class DataSourceDaoTest {
+	private DataSourceDao dao;
+	@Before
+	public void init(){
+		SQLServerDataSource dataSource = new SQLServerDataSource();
+		dataSource.setURL("jdbc:sqlserver://192.168.1.116:1433; DatabaseName=LssclDB");
+		dataSource.setUser("sa");
+		dataSource.setPassword("123456");
+		dao = new DataSourceDao(dataSource);
+	}
+	@Test
+	public void getDataSource(){
+		Map<String,Object>queryParam = new HashMap<String,Object>();
+		queryParam.put("page", 10);
+		queryParam.put("pageSize", 10);
+//		queryParam.put("name", "test");
+//		queryParam.put("port", 11006+"");
+		List<Map<String,Object>>maps = dao.getDataSourceByMap(queryParam);
+		System.out.println(dao.getCountByMap(queryParam));
+		for(Map<String,Object>m:maps){
+//			System.out.println(m);
+			ModbusIpDataSourceVO mv = (ModbusIpDataSourceVO)m.get("data");
+			System.out.println(m.get("id")+","+mv.getFactoryId()+","+mv.getPort());
+		}
+	}
+	@Test
+	public void getDataSourceById(){
+		ModbusIpDataSourceVO m1 = (ModbusIpDataSourceVO) dao.getDataSource(2);
+		ModbusIpDataSourceVO m2 = (ModbusIpDataSourceVO) dao.getDataSource(4);
+		System.out.println(m1.getPort()+","+m1.getName());
+		System.out.println(m2.getPort()+","+m2.getName());
+	}
+}

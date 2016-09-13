@@ -1,0 +1,25 @@
+#
+#    LssclM2M - http://www.lsscl.com
+#    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+#     
+#    
+#     
+#     
+#     
+#     
+#
+#     
+#     
+#     
+#     
+#
+#     
+#    
+#
+#
+com.serotonin.mango.view.text.RangeRenderer=changeContentText.jsp
+com.serotonin.mango.view.text.PlainRenderer=changeContentText.jsp
+com.serotonin.mango.view.text.MultistateRenderer=changeContentSelect.jsp
+com.serotonin.mango.view.text.BinaryTextRenderer=changeContentRadio.jsp
+com.serotonin.mango.view.text.AnalogRenderer=changeContentText.jsp
+com.serotonin.mango.view.text.TimeRenderer=changeContentText.jsp

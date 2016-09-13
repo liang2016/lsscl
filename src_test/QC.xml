@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QC>
+　<MSGID> MobleLogin</MSGID>
+　<SIMNO>通信卡号</SIMNO>
+　<IMEI>设备标识</IMEI>
+　<IMSI>卡标识</IMSI>
+　<MSGBODY>
+　　<PHONENO>手机号</PHONENO>
+　　<PASSWORD>用户密码</PASSWORD>
+　</MSGBODY>
+</QC>

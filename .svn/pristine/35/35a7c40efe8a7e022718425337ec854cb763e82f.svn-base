@@ -1,0 +1,334 @@
+package com.lsscl.app.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.lsscl.app.bean.LoginMsgBody;
+import com.lsscl.app.bean.MsgBody;
+import com.lsscl.app.bean.PushEvents;
+import com.lsscl.app.bean.QC;
+import com.lsscl.app.bean.RSP;
+import com.lsscl.app.dao.AppDao;
+import com.lsscl.app.dao.AppDaoImpl;
+import com.lsscl.app.dao.impl.AlarmHistoryDao;
+import com.lsscl.app.dao.impl.ChangePwdDao;
+import com.lsscl.app.dao.impl.CompressorAtrrNamesDao;
+import com.lsscl.app.dao.impl.CompressorDetailsDao;
+import com.lsscl.app.dao.impl.CompressorListDao;
+import com.lsscl.app.dao.impl.ContactUsDao;
+import com.lsscl.app.dao.impl.GetAllScopesDao;
+import com.lsscl.app.dao.impl.MobileIndexDao;
+import com.lsscl.app.dao.impl.MobileLoginDao;
+import com.lsscl.app.dao.impl.MobileLogoutDao;
+import com.lsscl.app.dao.impl.PointsWithin24HDao;
+import com.lsscl.app.dao.impl.ScopeAlarmListDao;
+import com.lsscl.app.dao.impl.ScopeIndexDao;
+import com.lsscl.app.dao.impl.ScopeListDao;
+import com.lsscl.app.util.AcpConfig;
+import com.lsscl.app.util.ApnsUtil;
+import com.lsscl.app.util.BaiduNSUtil;
+import com.lsscl.app.util.StringUtil;
+
+public class AppService {
+	/**
+	 * 登录
+	 */
+	public static final String LOGIN = "MobileLogin";
+	/**
+	 * 登录首页
+	 */
+	public static final String INDEX = "MobileIndex";
+
+	/**
+	 * 空压机列表
+	 */
+	public static final String ACP_LIST = "CompressorList";
+
+	/**
+	 * 空压机详细
+	 */
+	public static final String ACP_DETAIL = "CompressorDetails";
+
+	/**
+	 * 空压机属性点名称
+	 */
+	public static final String ACP_ATTR = "CompressorAttrNames";
+
+	/**
+	 * 报警推送历史
+	 */
+	public static final String ALARM_HISTORY = "AlarmHistory";
+
+	/**
+	 * 我的反馈
+	 */
+	public static final String CONTACT_US = "ContactUs";
+
+	/**
+	 * 退出登录
+	 */
+	public static final String LOGOUT = "MobileLogout";
+
+	/**
+	 * 区域列表
+	 */
+	public static final String SCOPELIST = "ScopeList";
+
+	/**
+	 * 区域首页
+	 */
+	public static final String ScopeIndex = "ScopeIndex";
+	/**
+	 * 区域报警
+	 */
+	public static final String ScopeAlarmList = "ScopeAlarmList";
+
+	/**
+	 * 修改密码
+	 */
+	public static final String PwdChange = "PwdChange";
+
+	/**
+	 * 报警历史下载
+	 */
+	public static final String ALARM_HISTORY_DOWNLOAD = "AlarmHistoryDownload";
+
+	/**
+	 * 获取所有区域列表
+	 */
+	public static final String GetAllScopes = "GetAllScopes";
+
+	/**
+	 * 24小时点统计
+	 */
+	public static final String PointsWithin24H = "PointsWithin24H";
+
+	/**
+	 * session过期
+	 */
+	public static final String SESSION_TIMEOUT = AcpConfig.cfg
+			.getProperty("session.timeout");
+
+	/**
+	 * 帐号被其他用户登录
+	 */
+	public static final String USER_ISLOGINED = AcpConfig.cfg
+			.getProperty("user.isLogined");
+	/**
+	 * 用户未登录
+	 */
+	public static final String UNLOGIN = AcpConfig.cfg.getProperty("unLogin");
+	private AppDao appDao = new AppDaoImpl();
+
+	public RSP getRSP(QC qc, HttpServletRequest req) {
+		if (qc == null)
+			return null;
+		String msgId = qc.getMsgId();
+		RSP rsp = null;
+		if (LOGIN.equals(msgId)) {// 登录
+			appDao = new MobileLoginDao();
+		} else if (INDEX.equals(msgId)) {// 登录首页
+			appDao = new MobileIndexDao();
+		} else if (ACP_LIST.equals(msgId)) {// 空压机列表
+			appDao = new CompressorListDao();
+		} else if (ACP_DETAIL.equals(msgId)) {// 空压机详细
+			appDao = new CompressorDetailsDao();
+		} else if (ALARM_HISTORY.equals(msgId)) {// 报警推送历史
+			appDao = new AlarmHistoryDao();
+		} else if (CONTACT_US.equals(msgId)) {// 我的反馈
+			appDao = new ContactUsDao();
+		} else if (LOGOUT.equals(msgId)) {// 退出登录
+			appDao = new MobileLogoutDao();
+		} else if (SCOPELIST.equals(msgId)) {// 区域列表
+			appDao = new ScopeListDao();
+		} else if (ACP_ATTR.equals(msgId)) {// 属性点名称
+			appDao = new CompressorAtrrNamesDao();
+		} else if (ScopeAlarmList.equals(msgId)) {// 区域报警列表
+			appDao = new ScopeAlarmListDao();
+		} else if (ScopeIndex.equals(msgId)) {
+			appDao = new ScopeIndexDao();
+			rsp = appDao.getRSP(qc);
+		} else if (PwdChange.equals(msgId)) {
+			rsp = new RSP(msgId);
+			checkLogin(qc, req, rsp);
+			if (rsp.getResult() != 2) {
+				appDao = new ChangePwdDao();
+				rsp = appDao.getRSP(qc);
+			}
+			return rsp;
+		} else if (GetAllScopes.equals(msgId)) {
+			appDao = new GetAllScopesDao();
+			rsp = appDao.getRSP(qc);
+			return rsp;
+		} else if (PointsWithin24H.equals(msgId)) {
+			appDao = new PointsWithin24HDao();
+		}
+		rsp = appDao.getRSP(qc);
+		// 验证登录
+		checkLogin(qc, req, rsp);
+
+		return rsp;
+	}
+
+	private void checkLogin(QC qc, HttpServletRequest req, RSP rsp) {
+
+		String msgId = qc.getMsgId();
+		String phone = qc.getMsgBody().get("PHONENO");
+		String key = StringUtil.formatPhoneNO(phone);
+		HttpSession session = req.getSession();
+		Map<String, QC> qcs = (Map<String, QC>) session.getServletContext()
+				.getAttribute("AppQCS");
+		if (qcs == null)
+			qcs = new HashMap<String, QC>();
+		if (LOGIN.equals(msgId)) {// 登录
+			// 保存区域id
+			MsgBody body = rsp.getMsgBody();
+			if (body != null && body instanceof LoginMsgBody) {
+				LoginMsgBody loginMsgBody = (LoginMsgBody) body;
+				qc.getMsgBody().put("SCOPEID", loginMsgBody.getScopeId() + "");
+			}
+			qcs.put(key, qc);
+		} else if (LOGOUT.equals(msgId)) {// 登出
+			qcs.remove(key);
+		} else {
+			String imsi = qc.getImsi();
+			QC loginQC = (QC) qcs.get(key);
+			if (loginQC != null) {
+				String loginImsi = loginQC.getImsi();
+				if (!loginImsi.equals(imsi)) {
+					rsp.setError(USER_ISLOGINED);
+					rsp.setResult(2);
+					rsp.setMsgBody(null);
+				}
+			} else {
+				rsp.setError("用户未登录");
+				rsp.setResult(2);
+				rsp.setMsgBody(null);
+			}
+		}
+		session.getServletContext().setAttribute("AppQCS", qcs);
+	}
+
+	/**
+	 * 查看报警，若新报警，远程推送消息
+	 * 
+	 * @param context
+	 */
+	public void checkAlarms(ServletContext context) {
+		System.out.println("checkAlarms........................");
+		long now = new Date().getTime();
+		long duration = 1 * 45 * 1000;
+		long after = now - duration;
+
+		// 1、获取工厂报警的手机号码
+		Set<String> tokens = getFactoryAlarmPhones(context, after);
+		// 2、获取区域报警的手机号码
+		List<PushEvents> pushEventses = getScopeAlarmPhones(context, after);
+		// 远程推送工厂点的报警
+		Map<String, QC> qcs = (Map<String, QC>) context.getAttribute("AppQCS");
+		if (qcs == null)
+			qcs = new HashMap<String, QC>();
+		for (String s : tokens) {
+			QC qc = (QC) qcs.get(s);
+			if (qc == null)
+				continue;
+			String imsi = qc.getImsi();
+			String imei = qc.getImei();
+			if (imsi != null && imsi.length() == 71) {// IOS推送
+				ApnsUtil.pushNotification(imsi, imei, "您有一条报警");
+			} else if (imsi != null && imsi.length() == 18) {// Android推送
+
+			}
+		}
+		for (PushEvents pe : pushEventses) {
+			if (pe.getDeviceType() == 1) {// Android
+				BaiduNSUtil.notification(pe.getUserId(), pe.getChannelId(),
+						"报警", pe.message(), pe.getFlag());
+			} else {
+				if (pe.getDeviceToken().length()== 71) {
+					ApnsUtil.pushNotification(pe);
+				}
+			}
+		}
+		System.out.println("LoginUser : " + qcs.size());
+	}
+
+	/**
+	 * 获取区域下的报警的手机号码
+	 * 
+	 * @param context
+	 * @param after
+	 * @return
+	 */
+	private List<PushEvents> getScopeAlarmPhones(ServletContext context,
+			long after) {
+		List<PushEvents> phones = new ArrayList<PushEvents>();
+		// 查看某时间点后的区域报警的区域id（工厂为三级报警、其他为一二三级报警）
+		Map<String, Set<String>> scopeEvents = appDao.getScopeEvents(after);
+
+		// 更新报警统计
+		if (scopeEvents.size() != 0) {
+			appDao.saveAllEventStatistics();
+		}
+		// 遍历查询application中的手机号码手否在区域内
+		Map<String, QC> qcs = (Map<String, QC>) context.getAttribute("AppQCS");
+		if (qcs == null)
+			qcs = new HashMap<String, QC>();
+		for (String key : qcs.keySet()) {
+			Object obj = qcs.get(key);
+			if (obj != null && obj instanceof QC) {
+				QC qc = (QC) obj;
+				String scopeId = qc.getMsgBody().get("SCOPEID");
+				if (scopeEvents.containsKey(scopeId))
+					phones.add(new PushEvents(scopeEvents.get(scopeId), qc));
+			}
+		}
+		return phones;
+	}
+
+	private Set<String> getFactoryAlarmPhones(ServletContext context, long after) {
+		// 查看某个时间点后的工厂属性点报警
+		List<Map<String, Object>> results = appDao.getMobileEvents(after);
+		// 2：遍历查询点的新值
+		// 存储号码
+		Set<String> tokens = new HashSet<String>();
+		for (Map<String, Object> m : results) {
+			Long time = (Long) m.get("cTime");
+			Integer pid = (Integer) m.get("id");
+			// 报警时间在10分钟内，产生推送消息
+			// 1:获取改点对应的手机号
+			List<String> phones = appDao.getPhonesByPid(pid);
+			// 获取报警点对应手机的令牌
+			for (String phoneNO : phones) {
+				String key = StringUtil.formatPhoneNO(phoneNO);
+				QC qc = (QC) context.getAttribute(key);
+				if (qc == null)
+					continue;
+				String imsi = qc.getImsi();
+				if (imsi != null && imsi.length() == 71) {
+					tokens.add(key);
+				}
+			}
+			// 更新报警
+			appDao.updateMobileEvent(pid, time);
+		}
+		return tokens;
+	}
+
+	/**
+	 * 初始化数据库相关数据
+	 */
+	public void initData() {
+		appDao.saveAllEventStatistics();
+	}
+
+}

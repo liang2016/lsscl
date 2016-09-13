@@ -1,0 +1,28 @@
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+ -->
+<h1>Overview</h1>
+<p>
+  This data source is used to collect data sent from persistent TCP publishers on other Lsscl instances. (The data 
+  source is capable of receiving publisher connections from the same instance, but this is typically of little utility.)
+</p>
+
+<h1>Configuration</h1>
+<p>
+  TODO
+</p>

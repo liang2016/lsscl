@@ -1,0 +1,23 @@
+#
+#    LssclM2M - http://www.lsscl.com
+#    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+#     
+#    
+#     
+#     
+#     
+#     
+#
+#     
+#     
+#     
+#     
+#
+#     
+#    
+#
+#
+com.serotonin.mango.view.chart.ImageChartRenderer=imageChart.jsp
+com.serotonin.mango.view.chart.StatisticsChartRenderer=statsChart.jsp
+com.serotonin.mango.view.chart.TableChartRenderer=tableChart.jsp
+com.serotonin.mango.view.chart.ImageFlipbookRenderer=flipbookChart.jsp

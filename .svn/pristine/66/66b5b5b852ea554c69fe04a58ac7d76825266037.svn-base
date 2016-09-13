@@ -1,0 +1,23 @@
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+ -->
+<p>The <b>Instance ID</b> is automatically assigned to your Lsscl instance by the Lsscl Home servers, and should not be changed. It is used to assign rights to documentation among other things. When you upgrade to a commercial version of Lsscl, you may need to provide this value.</p>
+
+<p>The <b>Database size</b> is the currently amount of storage space consumed by the Lsscl database. The majority of space is typically taken up by report instances, point readings, and events. To minimize the database size the purging characteristics for each of these items should be set as aggressively as is practical.</p>
+
+<p>Click the <img src="images/accept.png"/> icon to have Lsscl check for new version immediately. Lsscl will also automatically check periodically. If available upgrades are found, an information alert will be raised. This panel also displays the current version of Lsscl that is running.</p>

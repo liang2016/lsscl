@@ -1,0 +1,32 @@
+#
+#    LssclM2M - http://www.lsscl.com
+#    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+#     
+#    
+
+tomcat.home=F\:/apache-tomcat-7.0.42-windows-x64
+tomcat.manager.url=http://localhost:8080/manager
+tomcat.manager.username=manager
+tomcat.manager.password=manager
+tomcat.hostname=webapps
+
+# App name and app path are separated to accomodate root deployments. (i.e. 'ROOT' vs. '/') 
+tomcat.appdir=ROOT
+tomcat.apppath=/ROOT
+
+log4j.xml.logThreshold=warn
+
+db.type=derby
+db.url=~/../../LssclDB
+db.username=
+db.password=
+
+convert.db.type=
+convert.db.url=
+convert.db.username=
+convert.db.password=
+
+grove.url=http://www.lsscl.com/servlet
+
+# This property is only used for building a distribution.
+version=1.12.2

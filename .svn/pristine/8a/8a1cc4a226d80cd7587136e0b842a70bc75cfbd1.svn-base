@@ -1,0 +1,29 @@
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+ -->
+<p>
+本节提供了一个列表,这里包含当前工厂所有的数据点
+</p>
+<p>
+点被安排在一个层次(树型结构)中
+  （<img src="images/folder_brick.png"/>）.层次结构是管理员在<b>点层次</b>中自定义,由所有用户共享。
+</p>
+<p>
+ 在点列表结构中(树形结构)添加一个指向你当前观察列表，单击其名称,箭头图标
+  （<img src="images/bullet_go.png"/>）将变暗，则该点添加到你的观察列表.添加后的点将放在观察列表的底部.
+</p>

@@ -1,0 +1,19 @@
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+ -->
+<p>The <b>OID</b> represents either the object identifier to request on host, or to match in traps that are received. The <b>Data type</b> is the Lsscl representation of the value. Received data is automatically converted to the required data type. The <b>Binary 0 value</b> is the value to match for a binary point to be given the value 0. The <b>Set type</b> is the SNMP data type to use when setting values on the host. A value of "(not settable)" indicates that the point is read-only. The <b>Polling</b> field determines whether to include the value in GET requests with each polling cycle, or whether values are received only via traps.</p>

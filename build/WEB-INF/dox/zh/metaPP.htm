@@ -1,0 +1,169 @@
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+ -->
+<h1>概述</h1>
+<p>元数据点通过脚本转换已经存在数据点的值实现自己,脚本上下文使用的数据点必须是已经存在并且可以使用的数据点(非禁用/数据源点不可用)</p>
+
+<h1>数据点配置</h1>
+<p><b>数据类型</b>确定数据点的数据类型,脚本return的数据类型必须和这里一致</p>
+<p><b>脚本上下文</b> 这些数据点是提供给脚本使用的. 没一个数据点都将为一个<b>var</b>这些点的数据将作为脚本的变量名.这些脚本VAR的名称必须是有效的Javacript中的变量名 :它们必须以字母或下划线开始，并不能包含空格.点击 <img src="images/add.png"/> 图标将数据点添加到脚本上下文的变量中.点击 <img src="images/bullet_delete.png"/> 删除该数据点.</p>
+
+<h1>脚本</h1>
+<p><b>脚本</b> 脚本区域是输入要执行的脚本。脚本可以是任何有效的JavaScript将被写在一个函数中，<b>必须始终返回一个值</b>.一个简单的脚本可能看起来像这样：</p>
+<pre>return x.value;</pre>
+<p>其中x是一个的上下文中定义的脚本变种名称.数学函数也可以被执行。下面是一个更复杂的例子：</p>
+<pre>return Math.sqrt(x.value * 3);</pre>
+<p>这将返回点“X”乘以3的现值的平方根. (注：数学定义的JavaScript对象. 更多信息，请参阅在JavaScript文档.)同样你也可以定义本地变量,循环,逻辑等更复杂的脚本也可以执行 ,例如:</p>
+<pre>var t = x.value + y.value;
+if (b.value) {
+    for (var i=0; i&lt;5; i++) {
+        tmp += x.value - y.value;
+    }
+}
+else {
+    tmp = -tmp;
+}
+return tmp;</pre>
+<p>上面是通过一定的逻辑计算出一个新的值.</p>
+<p>I此外，在JavaScript上下文中，系统还定义了一些有用的全局功能，包括MAX(),MIN(),AVG(),SUM().例如：</p>
+<pre>return max(x.value, y.value, z.value);</pre>
+<p>这将返回的最大的'X'，'Y'，'Z'的值. </p>
+<p>脚本输入完成后,点击 <img src="images/accept.png"/> 图标,测试脚本运算的结果.</p>
+
+<h1>时间值</h1>
+<p>最新的时间戳值也可到脚本.可以使用以下字段：</p>
+<dl>
+  <dt>p.time</dt>
+  <dd>返回该点值的时间戳,以毫秒为单位.</dd>
+  <dt>p.millis</dt>
+  <dd>0-999毫秒部分 p.time</dd>
+  <dt>p.second</dt>
+  <dd>0-60</dd>
+  <dt>p.minute</dt>
+  <dd>0-60</dd>
+  <dt>p.hour</dt>
+  <dd>0-23</dd>
+  <dt>p.day</dt>
+  <dd>1-28,31</dd>
+  <dt>p.dayOfWeek</dt>
+  <dd>1-7，其中1是星期日</dd>
+  <dt>p.dayOfYear</dt>
+  <dd>1-365,366</dd>
+  <dt>p.month</dt>
+  <dd>1-12</dd>
+  <dt>p.year</dt>
+  <dd>四位</dd>
+</dl>
+<p>
+  在你的return之前,要明确设定TIMESTAMP的上下文变量的时间戳,这个值的单位是毫秒,不是本机时间
+</p>
+<pre>TIMESTAMP = new Date().getTime();
+return p.value + 1;
+</pre>
+<!-- 
+<h1>Context对象</h1>
+<p>The script var that represents a point in a script is actually an 'object', in JavaScript terminology. An object is a container of values and functions that can be referenced by their property names. To get a description of the properties available for use in a script var, use the help property, e.g.:</p>
+<pre>return x.help;</pre>
+<p>This script works best if the data type is set to alphanumeric, but this is not required. The help property is identical to the toString() function, which is available on all context objects (i.e. not just script vars).</p>
+<p>The <b>value</b> property is the present value of the point. The JavaScript type of the value is analogous to its Lsscl type: Binary become boolean, Numeric becomes float, Multistate becomes integer, and Alphanumeric becomes string.</p>
+<p>Each script var also implements four functions. The objects returned by these functions depend upon the data type of the point the var refers to. Again, the help property can be used to get a description of the returned object's properties. For the "periodType" parameter in all of the functions below, the following pre-defined global variables can be used: SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, and YEAR.</p>
+<p>The <b>ago()</b> function returns the value that the point had the given amount of time ago. For example, the call "x.ago(HOUR, 3)" returns the point's value exactly 3 hours ago.</p>
+<p>The <b>past()</b> function returns an object containing statistics over the given period ending now. See below for a description of the various statistics objects.</p>
+<p>The <b>prev()</b> and <b>previous()</b> functions are identical; the latter is provided for its linguistic completeness. The functions return the same statistically object as past(), but over a different time span. The start and end times are quantized such that they correspond to the period type. For example, if the period type is HOURLY and periods is 1, and the function runs at 18:05, the time span that will be used is from 17:00 (inclusive) to 18:00 (exclusive). If the periods were, say, 3, the time span would be from 15:00 to 18:00. Similarly, MONTH starts the time span at midnight on the first day of the previous month and ends it on the last day of the previous month (when periods is 1). Other period types work the same. A WEEK starts on Monday at midnight in accordance with ISO standards.</p>
+
+<h1>Statistics objects</h1>
+<p>Statistics objects are returned from the past(), prev(), and previous() functions. (See "Context objects" above.) The properties of the object returned depend upon the data type of point upon which they were generated. Time values in objects are stored as integers, but but represent the number of milliseconds since midnight Jan 1, 1970.</p>
+<p>
+  The <b>AnalogStatistics</b> object is returned by Numeric points. It contains the following properties:
+</p>
+<ul>
+  <li><b>minimum</b>: (float) the minimum value the point reached over the period</li>
+  <li><b>minimum time</b>: (integer) the time at which the minimum value was reached</li>
+  <li><b>maximum</b>: (float) the maximum value the point reached over the period</li>
+  <li><b>maximum time</b>: (integer) the time at which the maximum value was reached</li>
+  <li><b>average</b>: (float) the average value of the point over the period</li>
+  <li><b>sum</b>: (float) the sum of all value updates over the period (appropriate for pulse counting)</li>
+  <li><b>count</b>: (integer) the number of updates over the period</li>
+  <li><b>noData</b>: (boolean) whether the period contained any data (true if the period precedes the point's first known value)</li>
+  <li><b>realStart</b>: (integer) the actual start time used for calculations (in case the start time precedes the point's first known value)</li>
+  <li><b>end</b>: (integer) the end time used for calculations</li>
+</ul>
+<p>
+  For example, the following returns the minimum value of 'n' over the past hour:
+</p>
+<pre>return n.past(HOUR).minimum;</pre>
+
+<p>
+  The <b>StartsAndRuntimeList</b> object is returned by Binary and Multistate points. It contains the following 
+  properties:
+</p>
+<ul>
+  <li><b>realStart</b>: (integer) the actual start time used for calculations (in case the start time precedes the point's first known value)</li>
+  <li><b>end</b>: (integer) the end time used for calculations</li>
+  <li><b>data</b>: (array) the list of individual StartAndRuntime objects.</li>
+</ul>
+Each StartAndRuntime object has the following properties:
+<ul>
+  <li><b>value</b>: (boolean for Binary, integer for Multistate) the point state to which the remaining properties apply</li>
+  <li><b>starts</b>: (integer) the number of times the state was entered over the period</li>
+  <li><b>runtime</b>: (integer) the amount of time in milliseconds the point was in the state over the period</li>
+  <li><b>proportion</b>: (float) the proportion of the period the point was in the state (runtime / real duration)</li>
+  <li><b>percentage</b>: (float) proportion * 100</li>
+</ul>
+
+<p>
+  To access a specific StartAndRuntime object in the list, use the get() function. For example, the following returns the proportion of time that 'b' was in state 'false' over the previous 2 months.
+</p>
+<pre>return b.past(MONTH, 2).get(false).proportion;</pre>
+
+<p>The <b>ValueChangeCounter</b> object is returned by Alphanumeric points. It contains the single property <b>changes</b>, which is the number of times the point changed during the period. For example, the following returns the number of times 'a' changed during the previous 45 minutes.
+</p>
+<pre>return b.previous(MINUTE, 45);</pre>
+
+<p>For convenience, if a script var object is returned by a script, it's present value will be used. Thus, the following script will return the present value of 'x':</p>
+<pre>return x;</pre>
+<p>However, this script will not return the sum of 'x' and 'y':</p>
+<pre>return x + y;</pre>
+<p>... but this script would:</p>
+<pre>return x.value + y.value;</pre>
+
+<h1>Script execution</h1>
+<p>Each time a point's script is run, the result is assigned to the point as a value update. The times at which a script gets executed can be controlled with the
+!-->
+<b>更新事件</b> 确定脚本执行的时间</p>
+<p><b>执行延迟</b>延迟执行脚本的时间或者事件</p>
+<!-- 
+<h1>More examples</h1>
+<p>The following script calculates the rolling hourly average of points 'n1' and 'n2':</p>
+<pre>return avg(b1.past(HOUR).average, b2.past(HOUR).average);</pre>
+
+<p>This script calculates the daily number of pulses from an increasing pulse counter 'pulse' (when executed on "Start of day"):</p>
+<pre>return pulse.value - pulse.ago(DAY);</pre>
+
+<p>This next script is not very practically useful, but is interesting nonetheless. It cycles through the numbers 1, 2, and 3, but only changes randomly 1 in 100 executions.</p>
+<pre>var r = Math.random();
+if (r &gt; 0.01)
+    return x.value;
+
+if (x.value == 3)
+    return 1;
+return x.value + 1;</pre>
+
+<p>This script returns the sum of the integer values of two numeric points 'r' and 't':</p>
+<pre>return parseInt(t.value) + parseInt(r.value);</pre>
+ -->

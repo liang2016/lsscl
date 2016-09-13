@@ -1,0 +1,46 @@
+<%--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+--%>
+<%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
+<table cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top">
+      <div class="borderDiv marB marR" id="dataSourceProperties">
+        <table width="100%">
+          <tr>
+            <td class="smallTitle">
+              <tag:img png="icon_ds" title="common.edit"/>
+              ${dsDesc}
+              <tag:help id="${dsHelpId}"/>
+            </td>
+            <td align="right">
+              <tag:img png="icon_ds" onclick="toggleDataSource()" id="dsStatusImg" style="display:none"/>
+              <tag:img id="dsSaveImg" png="save" onclick="saveAcp()" title="common.save"/>
+            </td>
+          </tr>
+        </table>
+        <div id="dataSourceMessage" class="ctxmsg formError"></div>
+        <table>
+          <tr>
+            <td class="formLabelRequired"><fmt:message key="app.acpname"/></td>
+            <td class="formField"><input type="text" id="acpname" value="${acp.name}"/></td>
+          </tr>
+          <tr>
+            <td class="formLabelRequired"><fmt:message key="dsEdit.acp.volume"/></td>
+            <td class="formField"><input type="text" id="acppower" value="${acp.power}"/></td>
+          </tr>

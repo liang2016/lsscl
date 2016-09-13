@@ -1,0 +1,35 @@
+package test;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.junit.Test;
+
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.serotonin.mango.db.dao.DataPointDao;
+import com.serotonin.mango.vo.DataPointExtendedNameComparator;
+import com.serotonin.mango.vo.DataPointVO;
+import com.serotonin.mango.vo.hierarchy.PointHierarchy;
+
+public class DataPointDaoTest {
+	private DataPointDao dao;
+	
+	@Test
+	public void test() throws SQLException{
+		SQLServerDataSource dataSource = new SQLServerDataSource();
+		dataSource.setURL("jdbc:sqlserver://localhost:1433; DatabaseName=LssclDB");
+		dataSource.setUser("sa");
+		dataSource.setPassword("123456");
+		dao = new DataPointDao(dataSource);
+		
+		
+		PointHierarchy ph = dao.getPointHierarchy(3).copyFoldersOnly();
+		List<DataPointVO> points = dao.getDataPoints(44,DataPointExtendedNameComparator.instance, false);
+		DataPointVO p2 = dao.getDataPoint(924);
+		int id = dao.getPointFromAcpMember(103, 41);
+		System.out.println(id);
+//		System.out.println(points);
+		System.out.println(p2);
+	}
+
+}

@@ -1,0 +1,6 @@
+<H1>概述</H1>
+<p>用户添加个数限制 主要用来限制工厂级别用户对添加新用户个数的限制</p>
+<H1>全部保存</H1>
+<p>点击<img  src="images/save.png">将保存所有工厂用户添加个数配置</p>
+<H1>单个保存</H1>
+<p>点击<input class="formField" type="button" value="保存" ">保存指定用户添加个数配置</p>

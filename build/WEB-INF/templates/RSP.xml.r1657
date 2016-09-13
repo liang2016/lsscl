@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RSP>
+	<MSGID>${rsp.msgId}</MSGID>
+	<RESULT>${rsp.result}</RESULT>
+	<ERROR>${rsp.error}</ERROR>
+	<#if (rsp.rspTime)?? >
+	<RSPTIME>${rsp.rspTime}</RSPTIME>
+	</#if>
+	<MSGBODY>
+	<#if (rsp.msgBody)?? >    
+		<#if (rsp.msgId=='MobileLogin')><#--客户登陆 MobileLogin-->
+		<#if (rsp.msgBody.userflag)?? >
+		<USERFLAG>${rsp.msgBody.userflag}</USERFLAG>
+		</#if>
+		</#if>
+		<#if (rsp.msgId=='MobileIndex')><#--登陆首页 MobileIndex-->
+		<#if (rsp.msgBody.username)?? >
+		<USERNAME>${rsp.msgBody.username}</USERNAME>
+		<FACTORYNAME>${rsp.msgBody.factoryName}</FACTORYNAME>
+		<TIME>${rsp.msgBody.time}</TIME>
+		<POWER>${rsp.msgBody.power}</POWER>
+		<TOTAL>${rsp.msgBody.total}</TOTAL>
+		<OPEN>${rsp.msgBody.open}</OPEN>
+		<CLOSE>${rsp.msgBody.close}</CLOSE>
+		<ALARM>${rsp.msgBody.alarm}</ALARM>
+		<LASTALARMTIME>${rsp.msgBody.lastAlarmTime}</LASTALARMTIME>
+		</#if>
+		</#if>
+		<#if (rsp.msgId=='CompressorList')><#--空压机列表 CompressorList-->
+		<#if (rsp.msgBody.compressorInfos)?? >
+		<COMPRESSORINFOS>
+			<#list rsp.msgBody.compressorInfos as info>
+			<COMPRESSORINFO>
+			    <COMPRESSORID>${info.compressorId}</COMPRESSORID>
+				<COMPRESSORNAME>${info.compressorName}</COMPRESSORNAME>
+				<EXHAUSTEMPERATURE>${info.exhausTemperature}</EXHAUSTEMPERATURE>
+				<EXHAUSPRESSURE>${info.exhausPressure}</EXHAUSPRESSURE>
+				<ALARMFLAG>${info.alarmFlag}</ALARMFLAG>
+			</COMPRESSORINFO>
+			</#list>
+		</COMPRESSORINFOS>
+		</#if>
+		</#if>
+		<#if (rsp.msgId=='CompressorDetails')><#--空压机详细 CompressorDetails-->
+		<#if (rsp.msgBody.compressorName)?? >
+		<COMPRESSORNAME>${rsp.msgBody.compressorName}</COMPRESSORNAME>
+		<TIME>${rsp.msgBody.time}</TIME>
+		<POWER>${rsp.msgBody.power}</POWER>
+		<EXHAUSTEMPERATURE>${rsp.msgBody.exhausTemperature}</EXHAUSTEMPERATURE>
+		<SETTEMPERATURE>${rsp.msgBody.setTemperature}</SETTEMPERATURE>
+		<EXHAUSPRESSURE>${rsp.msgBody.exhausPressure}</EXHAUSPRESSURE>
+		<PRESSURECUP>${rsp.msgBody.pressureCup}</PRESSURECUP>
+		<PRESSURELIMIT>${rsp.msgBody.pressureLimit}</PRESSURELIMIT>
+		<TIMEINFO>
+			<RUN>${rsp.msgBody.timeInfo.run}</RUN>
+			<LOAD>${rsp.msgBody.timeInfo.load}</LOAD>
+			<NEXTMAINTENANCETIME>${rsp.msgBody.timeInfo.nextMaintenanceTime}</NEXTMAINTENANCETIME>
+		</TIMEINFO>
+		<PRESSUER>
+			<OIL>${rsp.msgBody.pressuer.oil}</OIL>
+			<OILFILTER>${rsp.msgBody.pressuer.oilFilter}</OILFILTER>
+			<AIRFILTER>${rsp.msgBody.pressuer.airFilter}</AIRFILTER>
+		</PRESSUER>
+		</#if>
+		</#if>
+		<#if (rsp.msgId=='AlarmHistory')><#--报警推送历史AlarmHistory-->
+		<#if (rsp.msgBody.alarmInfos)?? >
+		<FLAG>${rsp.msgBody.flag}</FLAG>
+		<ALARMINFOS>
+			<#list rsp.msgBody.alarmInfos as info>
+			<ALARMINFO>
+				<ALARMTIME>${info.alarmTime}</ALARMTIME>
+				<FLAG>${info.flag}</FLAG>
+				<COMPRESSORID>${info.compressorId}</COMPRESSORID>
+				<COMPRESSORNAME>${info.compressorName}</COMPRESSORNAME>
+				<ALARMCONTENT>${info.alarmInfo}</ALARMCONTENT>
+			</ALARMINFO>
+			</#list>
+		</ALARMINFOS>
+		</#if>
+		</#if>
+		<#if (rsp.msgId=='AlarmHistoryDownload')><#--报警历史下载AlarmHistoryDownload-->
+		<URL>${rsp.msgBody.msg}</URL>
+		</#if>
+	</#if>	
+	</MSGBODY>
+</RSP>

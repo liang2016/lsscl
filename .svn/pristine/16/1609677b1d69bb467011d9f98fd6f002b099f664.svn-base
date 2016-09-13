@@ -1,0 +1,25 @@
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+ -->
+<p>
+  Points are automatically created by duplicating much of the information from the publisher. The name and XID may be 
+  modified, but if "Accept point attribute updates" is checked the name may be overwritten if it is changed for the 
+  point at the publisher. Furthermore, since the XID is the key upon which points between the publisher and the data
+  source are matched, changing the XID will cause a new point to be created with the original XID, which will then 
+  receive all of the updates for the point.
+</p>

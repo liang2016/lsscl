@@ -1,0 +1,90 @@
+package test;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.lsscl.app.bean.QC;
+import com.lsscl.app.bean.RSP;
+import com.lsscl.app.dao.AppDao;
+import com.lsscl.app.util.AcpConfig;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
+public class AppDaoTest {
+	private AppDao dao;
+	@Before
+	public void init(){
+		SQLServerDataSource dataSource = new SQLServerDataSource();
+		dataSource.setURL("jdbc:sqlserver://192.168.1.116:1433; DatabaseName=LssclDB");
+		dataSource.setUser("sa");
+		dataSource.setPassword("123456");
+		dao = new AppDao(dataSource);
+	}
+
+	@Test
+	public void mobleIndex(){
+		QC qc = new QC();
+		qc.getMsgBody().put("PHONENO", "13777777777");
+		RSP rsp = dao.mobileIndex(qc);
+		System.out.println(rsp.getMsgBody());
+	}
+	@Test
+	public void mobileLogin(){
+		QC qc = new QC();
+		qc.getMsgBody().put("PHONENO", "15067118176");
+		qc.getMsgBody().put("PASSWORD", "123");
+		RSP rsp = dao.mobleLogin(qc);
+		System.out.println(rsp);
+	}
+	@Test
+	public void compressorDetails(){
+		/*
+select a.id,a.acname,u.username,u.phone from aircompressor a left join scope s on a.factoryid = s.id 
+				left join user_scope us on s.id = us.scopeid
+ 				left join users u on u.id = us.uid where a.id = 103 
+		 */
+		QC qc = new QC();
+		qc.getMsgBody().put("PHONENO", "13777777777");
+		qc.getMsgBody().put("PASSWORD", "123");
+		qc.getMsgBody().put("COMPRESSORID", "103");
+		
+		
+		RSP rsp = dao.compressorDetails(qc);
+		System.out.println(rsp.getMsgBody());
+	}
+	@Test
+	public void compressorList(){
+		QC qc = new QC();
+		qc.getMsgBody().put("PHONENO", "13777777777");
+		qc.getMsgBody().put("PASSWORD", "123");
+		RSP rsp = dao.compressorList(qc);
+		System.out.println(rsp.getMsgBody());
+		System.out.println(AcpConfig.EXHAUSPRESSURE);
+	}
+	
+	@Test
+	public void contactInfo(){
+		QC qc = new QC();
+		qc.setMsgId("");
+		 qc.getMsgBody().put("PHONENO", "13777777777");
+			qc.getMsgBody().put("PASSWORD", "123");
+			qc.getMsgBody().put("CONTACTTEXT", "我的反馈");
+			qc.getMsgBody().put("COMPRESSORID", "103");
+			RSP rsp=dao.contactUs(qc);
+			System.out.println(rsp);
+	}
+	
+	@Test
+	public void alarmHistory(){
+		QC qc = new QC();
+		qc.setMsgId("");
+		qc.getMsgBody().put("PHONENO", "15067118131");
+		qc.getMsgBody().put("LASTQCTIME", "2013-12-18 16:11:40");
+		RSP rsp = dao.alarmHistory(qc);
+		System.out.println(rsp.getMsgBody());
+	}
+	
+	@Test
+	public void sendMail(){
+		dao.sendMail("15067118171","123");
+	}
+}

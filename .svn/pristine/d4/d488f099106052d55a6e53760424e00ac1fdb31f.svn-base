@@ -1,0 +1,74 @@
+package test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+
+import com.lsscl.app.bean.QC;
+import com.lsscl.app.util.HttpUtil;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
+public class HttpTest {
+	@Test
+	public void test(){
+		Configuration cfg = new Configuration();
+		try {
+			cfg.setDirectoryForTemplateLoading(new File("src"));
+			Template temp = cfg.getTemplate("QC.xml");
+			 QC qc = new QC();
+			 qc.setMsgId("MobileLogin");
+//		     qc.setMsgId("ContactUs");
+//		     qc.setMsgId("CompressorList");
+//		     qc.setMsgId("MobileIndex");
+//		     qc.setMsgId("CompressorDetails");
+//		     qc.setMsgId("AlarmHistory");
+//			 qc.setMsgId("AlarmHistoryDownload");
+		     qc.setSimNo("1233210");
+		     qc.setImei("test");
+		     qc.setImsi("e1231");
+		     
+		     qc.getMsgBody().put("PHONENO", "13777777777");
+				qc.getMsgBody().put("PASSWORD", "123");
+				qc.getMsgBody().put("CONTACTTEXT", "我的反馈123");
+				qc.getMsgBody().put("COMPRESSORID", "283");
+				qc.getMsgBody().put("STIME", "2013-12-21 10:10:10");
+				qc.getMsgBody().put("ETIME", "2013-12-22 10:10:10");
+				qc.getMsgBody().put("LASTQCTIME", "2013-12-22 10:10:10");
+			Map root = new HashMap();
+			root.put("qc", qc);
+			/* 合并数据模型和模版*/  
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	        Writer out = new OutputStreamWriter(baos);  
+	        temp.process(root, out);  
+	        out.flush();  
+	        //发送请求
+	        String path = "http://www.81do.net/servlet/AppServlet";
+	        System.out.println(baos.toString());
+	        byte [] data = HttpUtil.postXml(path, baos.toString(), "utf-8");
+	        String s = new String(data,"GBK");
+//	        String s = HttpUtil.SendDataToServer(path, baos.toString(), "2D39C7101D60F39BF3710E004F585402");
+			System.out.println(s);
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testString(){
+		System.out.println(Integer.parseInt("1.0"));
+	}
+
+}

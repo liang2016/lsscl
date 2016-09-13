@@ -1,0 +1,57 @@
+package com.lsscl.app.dao.impl;
+
+import java.util.List;
+
+import com.lsscl.app.bean.QC;
+import com.lsscl.app.bean.RSP;
+import com.lsscl.app.bean.ScopeEvent;
+import com.lsscl.app.bean.ScopeEventsMsgBody;
+import com.lsscl.app.dao.AppDao;
+
+public class ScopeAlarmListDao extends AppDao {
+
+	/**
+	 * 区域报警列表
+	 * 
+	 * @return
+	 */
+	public static final String select_scopeAlarmList = "with ScopeTree AS "
+			+ "( " + "SELECT id,scopename,scopetype,parentid FROM scope "
+			+ "WHERE id = ? " + "UNION ALL "
+			+ "SELECT s.id,s.scopename,s.scopetype,s.parentid FROM "
+			+ "ScopeTree t,Scope s " + "WHERE t.id = s.parentid " + ") "
+			+ "select * from ( "
+			+ "select row_number()over(order by e.activeTs desc)rn , "
+			+ "e.id,s.id as scopeId,s.scopename,e.message,e.activeTs from events e "
+			+ "left join ScopeTree s on e.scopeId = s.id "
+			+ "where ( e.ackTs is null or (e.rtnApplicable='Y' and e.rtnTs is null)) "
+			+ "and s.scopetype = 3 and e.emailHandler = ? and e.activeTs > ?)tt "
+			+ "where rn>=? and rn<? ";
+
+	public RSP getRSP(QC qc) {
+		RSP rsp = new RSP(qc.getMsgId());
+		String level = qc.getMsgBody().get("LEVEL");
+		String scopeId = qc.getMsgBody().get("SCOPEID");
+		String startIndex = qc.getMsgBody().get("STARTINDEX");
+		String pageSize = qc.getMsgBody().get("PAGESIZE");
+		String time = qc.getMsgBody().get("STIME");
+		time = time!=null?time:"0";
+		int start = 1;
+		int end = 10;
+		if (startIndex != null && pageSize != null) {
+			start = Integer.parseInt(startIndex);
+			end = start + Integer.parseInt(pageSize);
+		}
+		List<ScopeEvent> events = ejt.query(select_scopeAlarmList,
+				new Object[] { scopeId, level, time,start, end },
+				new ScopeEventMapper());
+		ScopeEventsMsgBody msgBody = new ScopeEventsMsgBody();
+		msgBody.setEvents(events);
+		msgBody.setLevel(level);
+		msgBody.setStartIndex(start + "");
+		msgBody.setPageSize(pageSize);
+		rsp.setMsgBody(msgBody);
+		return rsp;
+	}
+
+}

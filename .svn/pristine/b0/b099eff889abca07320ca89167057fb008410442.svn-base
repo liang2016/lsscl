@@ -1,0 +1,23 @@
+<!--
+    LssclM2M - http://www.lsscl.com
+    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+     
+    
+     
+     
+     
+     
+
+     
+     
+     
+     
+
+     
+     
+ -->
+<p><b>实例ID</B>被自动分配到由Lsscl服务器Lsscl实例，不应该改变。它是用来指定文档权利除其他事项。当您升级到Lsscl商业版本，您可能需要提供此值。</ P>
+
+<P><b>数据库大小</B>是目前量消耗由Lsscl数据库存储空间。报告情况，点读数，事件通常采取的大部分空间。清除这些项目的特点，以尽量数据库的大小应设置为积极的作为是可行的。</ P>
+
+<p>点击的<img src="images/accept.png"/>图标立即有新版本Lsscl检查。 lsscl也将自动定期检查。如果发现可用升级，将提高信息提醒。此面板还显示当前正在运行版本的Lsscl。</ P>

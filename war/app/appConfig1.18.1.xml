@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- apk下载路径 -->
+<url>http://www.lsscl.com:8080/appDownload/lsscl1.18.1.apk</url>
+<!-- 客户端请求地址 -->
+<qcURL>http://www.lsscl.com:8080/servlet/appServlet</qcURL>
+<!-- 最新版本号 -->
+<version>1.18.1</version>
+<!-- 版本信息 -->
+<content>
+    压缩机管家Android版1.18.1
+    新增功能：
+    1、软件界面按钮大小适配
+    2、run_item布局调整
+</content>

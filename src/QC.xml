@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QC>
+	<MSGID>${qc.msgId}</MSGID>
+	<SIMNO>${qc.simNo}</SIMNO>
+	<IMEI>${qc.imei}</IMEI>
+	<IMSI>${qc.imsi}</IMSI>
+	<MSGBODY>
+	<#if (qc.msgBody.PHONENO)?? >
+		<PHONENO>${qc.msgBody.PHONENO}</PHONENO>
+	</#if>
+	<#if (qc.msgBody.PASSWORD)?? >
+		<PASSWORD>${qc.msgBody.PASSWORD}</PASSWORD>
+	</#if>
+	<#if (qc.msgBody.COMPRESSORID)?? >
+		<COMPRESSORID>${qc.msgBody.COMPRESSORID}</COMPRESSORID>
+	</#if>
+	<#if (qc.msgBody.CONTACTTEXT)?? >
+		<CONTACTTEXT>${qc.msgBody.CONTACTTEXT}</CONTACTTEXT>
+	</#if>
+	<#if (qc.msgBody.LASTQCTIME)?? >
+		<LASTQCTIME>${qc.msgBody.LASTQCTIME}</LASTQCTIME>
+	</#if>
+	<#if (qc.msgBody.STIME)?? >
+		<STIME>${qc.msgBody.STIME}</STIME>
+	</#if>
+	<#if (qc.msgBody.ETIME)?? >
+		<ETIME>${qc.msgBody.STIME}</ETIME>
+	</#if>
+	</MSGBODY>
+</QC>

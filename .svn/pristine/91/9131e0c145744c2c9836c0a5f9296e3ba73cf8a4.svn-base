@@ -1,0 +1,24 @@
+#
+#    LssclM2M - http://www.lsscl.com
+#    Copyright (C) 2006-2011 Lsscl ES Technologies Inc.
+#    
+#    
+#
+#
+db.type=MSSQL
+db.url=jdbc\:sqlserver\://localhost\:1433;DatabaseName\=lssclDB
+db.username=sa
+db.password=123456
+db.pool.maxActive=500
+db.pool.maxIdle=50
+db.update.log.dir=${catalina.base}/logs/
+
+convert.db.type=MSSQL
+convert.db.url=jdbc\:sqlserver\://www.lsscl.com\:1500;DatabaseName\=lssclm2m
+convert.db.username=sa
+convert.db.password=123456
+
+grove.url=http://mango.serotoninsoftware.com/servlet
+
+ssl.on=false
+ssl.port=8443
